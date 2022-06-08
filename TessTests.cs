@@ -26,8 +26,11 @@ public class UnitTest1
         tess.AddContour(negativeTriangle, negativeOrientation);
         tess.Tessellate(WindingRule.Positive, ElementType.Polygons, 3, (_, _, _) => null, new Vec3(0, 0, 1));
 
+        // The result contains the 4 vertices of positiveRectangle. Expected would be that the shared point 'a' is removed and 'e' and 'f' are added
         Assert.Equal(5, tess.Vertices.Length);
+        // For a polygon of 5 vertices, three triangles would be expected
         Assert.Equal(3, tess.ElementCount);
+        // The shared corner should be removed but isn't
         Assert.DoesNotContain(a, tess.Vertices);
     }
 }
